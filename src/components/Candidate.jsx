@@ -45,11 +45,11 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
     setReceipt({
       ...receipt,
       status: true,
-      candidateName: res.data?.candidateName || "Samarth Aggarwal",
-      token: res.data?.token || "sdrftghj4567ojlkh",
-      timestamp: res.data?.createdAt,
-      voterName: res.data?.voterName || "Rama Das",
-      voterId: res.data?.voterId || "23456",
+      candidateName: "Samarth Aggarwal",
+      token: "sdrftghj4567ojlkh",
+      timestamp: null,
+      voterName: "Rama Das",
+      voterId: "23456",
     });
     onToggle()
     // setLoading(true);
