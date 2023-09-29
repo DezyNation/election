@@ -58,11 +58,6 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(location);
-    console.log(locationStatus);
-  }, [location]);
-
   return (
     <Box
       w={"full"}
@@ -90,8 +85,8 @@ export default function Home() {
           </Text>
         </Box>
       </HStack>
-      {locationStatus == "granted" ? <Timer targetDate={tomorrow} /> : <Box w={"full"} pt={48}></Box>}
-      {locationStatus == "granted" ? (
+      {location ? <Timer targetDate={tomorrow} /> : <Box w={"full"} pt={48}></Box>}
+      {location ? (
         <CandidatesList />
       ) : (
         <VStack>
