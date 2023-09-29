@@ -45,12 +45,13 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
     setReceipt({
       ...receipt,
       status: true,
-      candidateName: res.data?.candidateName,
-      token: res.data?.token,
+      candidateName: res.data?.candidateName || "Samarth Aggarwal",
+      token: res.data?.token || "sdrftghj4567ojlkh",
       timestamp: res.data?.createdAt,
-      voterName: res.data?.voterName,
-      voterId: res.data?.voterId,
+      voterName: res.data?.voterName || "Rama Das",
+      voterId: res.data?.voterId || "23456",
     });
+    onToggle()
     // setLoading(true);
     // axios
     //   .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/caste-vote`, {
@@ -162,7 +163,7 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
                 color={"#FFF"}
                 bgColor={"#333"}
                 colorScheme="teal"
-                onClick={casteVote}
+                onClick={()=>casteVote()}
               >
                 Confirm
               </Button>
