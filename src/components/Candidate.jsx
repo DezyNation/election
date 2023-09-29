@@ -42,45 +42,54 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   function casteVote() {
-    setLoading(true);
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/caste-vote`, {
-        candidateId: id,
-        secretPin: pin,
-      })
-      .then((res) => {
-        setLoading(false);
-        const data = {
-          ...receipt,
-          status: true,
-          candidateName: res.data?.candidateName,
-          token: res.data?.token,
-          timestamp: res.data?.createdAt,
-          voterName: res.data?.voterName,
-          voterId: res.data?.voterId,
-        };
-        setReceipt(data);
-        localStorage.setItem("receipt", JSON.stringify(data));
-      })
-      .catch((error) => {
-        Toast({
-          status: "error",
-          title: "Error occured while voting",
-          description:
-            error?.response?.data?.error?.message ||
-            error?.response?.data?.message ||
-            error?.message,
-        });
-      });
+    setReceipt({
+      ...receipt,
+      status: true,
+      candidateName: res.data?.candidateName,
+      token: res.data?.token,
+      timestamp: res.data?.createdAt,
+      voterName: res.data?.voterName,
+      voterId: res.data?.voterId,
+    });
+    // setLoading(true);
+    // axios
+    //   .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/caste-vote`, {
+    //     candidateId: id,
+    //     secretPin: pin,
+    //   })
+    //   .then((res) => {
+    //     setLoading(false);
+    //     const data = {
+    //       ...receipt,
+    //       status: true,
+    //       candidateName: res.data?.candidateName,
+    //       token: res.data?.token,
+    //       timestamp: res.data?.createdAt,
+    //       voterName: res.data?.voterName,
+    //       voterId: res.data?.voterId,
+    //     };
+    //     setReceipt(data);
+    //     localStorage.setItem("receipt", JSON.stringify(data));
+    //   })
+    //   .catch((error) => {
+    //     Toast({
+    //       status: "error",
+    //       title: "Error occured while voting",
+    //       description:
+    //         error?.response?.data?.error?.message ||
+    //         error?.response?.data?.message ||
+    //         error?.message,
+    //     });
+    //   });
   }
 
-  useEffect(()=>{
-    const existingReceipt = JSON.parse(localStorage.getItem("receipt"))
-    if(existingReceipt){
-      setLoading(true)
-      setReceipt(existingReceipt)
+  useEffect(() => {
+    const existingReceipt = JSON.parse(localStorage.getItem("receipt"));
+    if (existingReceipt) {
+      setLoading(true);
+      setReceipt(existingReceipt);
     }
-  },[])
+  }, []);
 
   return (
     <>
