@@ -35,7 +35,7 @@ const page = () => {
       setVolunteers(allVolunteers);
       return;
     }
-    const data = volunteers.filter((user) => user?.name == value);
+    const data = volunteers.filter((user) => user?.name?.toLowerCase()?.includes(value));
     setVolunteers(data);
   }
 
