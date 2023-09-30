@@ -31,8 +31,6 @@ const Receipt = ({ data, onClose }) => {
         isCentered={true}
         isOpen={status}
         onClose={() => onClose()}
-        closeOnOverlayClick={false}
-        closeOnEsc={false}
       >
         <ModalOverlay />
         <ModalContent>

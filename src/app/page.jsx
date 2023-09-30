@@ -1,17 +1,34 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Box, HStack, Image, Text, VStack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  VStack,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
 import CandidatesList from "./candidates/page";
-import Timer from "@/components/Timer";
+import ReactMarkdown from "react-markdown";
+import axios from "axios";
 
 export default function Home() {
   const Toast = useToast();
   const [location, setLocation] = useState("");
-  const [locationStatus, setLocationStatus] = useState("");
-  const [myVote, setMyVote] = useState("");
 
-  const tomorrow = new Date().setDate(new Date().getDate() + 1);
+  const [consented, setConsented] = useState(true);
+  const [consentModal, setConsentModal] = useState(false);
+
+  const [electionInfo, setElectionInfo] = useState(null);
 
   var options = {
     enableHighAccuracy: true,
@@ -39,7 +56,6 @@ export default function Home() {
       navigator.permissions
         .query({ name: "geolocation" })
         .then(function (result) {
-          setLocationStatus(result.state);
           if (result.state === "granted") {
             //If granted then you can directly call your function here
             navigator.geolocation.getCurrentPosition(success, errors, options);
@@ -58,44 +74,103 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    const consentStatus = localStorage.getItem("consented");
+    if (consentStatus == "true" || consentStatus == true) {
+      setConsented(true);
+      setConsentModal(false)
+    } else {
+      setConsentModal(true)
+      setConsented(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/election-control`)
+      .then((res) => {
+        setElectionInfo(res.data?.data?.attributes);
+      })
+      .catch((err) => {
+        Toast({
+          status: "error",
+          title: "Error occured while getting election info",
+          description:
+            err?.response?.data?.err?.message ||
+            err?.response?.data?.message ||
+            err?.message,
+        });
+      });
+  }, []);
+
   return (
-    <Box
-      w={"full"}
-      minH={"100vh"}
-      bgImage={location ? "/gradient.jpg" : "/mountains.jpg"}
-      bgPos={"center 20%"}
-      bgAttachment={"fixed"}
-      bgSize={"cover"}
-      transition={"all 0.3s ease"}
-      p={8}
-    >
-      <HStack justifyContent={"center"} w={"full"}>
-        <Image src="/logo.png" boxSize={"12"} />
-        <Box>
-          <Text
-            fontSize={"2xl"}
-            className="messiri"
-            fontWeight={"semibold"}
-            color={"#444"}
-          >
-            Elections at KCS
-          </Text>
-          <Text fontSize={"10"} marginTop={"-2"}>
-            Inspired by DoM
-          </Text>
-        </Box>
-      </HStack>
-      {location ? <Timer targetDate={tomorrow} /> : <Box w={"full"} pt={48}></Box>}
-      {location ? (
-        <CandidatesList />
-      ) : (
-        <VStack>
-          <FaLocationDot color="#333" size={"128"} />
-          <Text fontWeight={"bold"} textAlign={"center"}>
-            Please allow location access to participate
-          </Text>
-        </VStack>
-      )}
-    </Box>
+    <>
+      <Box
+        w={"full"}
+        minH={"100vh"}
+        bgImage={location ? "/gradient.jpg" : "/mountains.jpg"}
+        bgPos={"center 20%"}
+        bgSize={"cover"}
+        transition={"all 0.3s ease"}
+        p={8}
+      >
+        <HStack justifyContent={["flex-start", "center"]} w={"full"}>
+          <Image src="/logo.png" boxSize={"12"} />
+          <Box>
+            <Text
+              fontSize={"2xl"}
+              className="messiri"
+              fontWeight={"semibold"}
+              color={"#444"}
+            >
+              Elections at KCS
+            </Text>
+            <Text fontSize={"10"} marginTop={"-2"}>
+              Inspired by DoM
+            </Text>
+          </Box>
+        </HStack>
+        <Box w={"full"} pt={location ? 8 : 48}></Box>
+        {location ? (
+          <CandidatesList />
+        ) : (
+          <VStack>
+            <FaLocationDot color="#333" size={"128"} />
+            <Text fontWeight={"bold"} textAlign={"center"}>
+              Please allow location access to participate
+            </Text>
+          </VStack>
+        )}
+
+        <Box w={"full"} pt={24}></Box>
+        <Text fontSize={"xs"} textAlign={"center"} py={4} cursor={"pointer"}>
+          By participating in this poll you agree to our Terms & Conditions
+        </Text>
+      </Box>
+
+      {/* Terms & Conditions */}
+      <Modal isOpen={consentModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Terms and conditions of use</ModalHeader>
+          <ModalBody>
+            {<ReactMarkdown>{electionInfo?.terms || ""}</ReactMarkdown>}
+          </ModalBody>
+          <ModalFooter>
+            <HStack justifyContent={"flex-end"}>
+              <Button
+                onClick={() => {
+                  setConsented(true);
+                  localStorage.setItem("consented", true)
+                  setConsentModal(false);
+                }}
+              >
+                Agree & Continue
+              </Button>
+            </HStack>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

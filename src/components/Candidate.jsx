@@ -12,22 +12,29 @@ import {
   ModalOverlay,
   PinInput,
   PinInputField,
+  Progress,
   Skeleton,
   SkeletonCircle,
-  SkeletonText,
   Text,
   VStack,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { BsShieldFillCheck } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa6";
 import FullPageLoader from "./FullPageLoader";
 import axios from "axios";
 import Receipt from "./Receipt";
 
-const Candidate = ({ id, name, avatar, myLocation }) => {
+const Candidate = ({
+  id,
+  name,
+  avatar,
+  myLocation,
+  resultDeclared,
+  totalVotes,
+  tokens,
+}) => {
   const Toast = useToast();
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
@@ -41,53 +48,53 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
   });
   const { isOpen, onToggle } = useDisclosure();
 
+  const [tokenModalStatus, setTokenModalStatus] = useState(false);
+
   function casteVote() {
-    setReceipt({
-      ...receipt,
-      status: true,
-      candidateName: "Samarth Aggarwal",
-      token: "sdrftghj4567ojlkh",
-      timestamp: null,
-      voterName: "Rama Das",
-      voterId: "23456",
-    });
-    onToggle()
-    // setLoading(true);
-    // axios
-    //   .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/caste-vote`, {
-    //     candidateId: id,
-    //     secretPin: pin,
-    //   })
-    //   .then((res) => {
-    //     setLoading(false);
-    //     const data = {
-    //       ...receipt,
-    //       status: true,
-    //       candidateName: res.data?.candidateName,
-    //       token: res.data?.token,
-    //       timestamp: res.data?.createdAt,
-    //       voterName: res.data?.voterName,
-    //       voterId: res.data?.voterId,
-    //     };
-    //     setReceipt(data);
-    //     localStorage.setItem("receipt", JSON.stringify(data));
-    //   })
-    //   .catch((error) => {
-    //     Toast({
-    //       status: "error",
-    //       title: "Error occured while voting",
-    //       description:
-    //         error?.response?.data?.error?.message ||
-    //         error?.response?.data?.message ||
-    //         error?.message,
-    //     });
-    //   });
+    setLoading(true);
+    axios
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/vote/caste-vote`, {
+        candidateId: id,
+        secretPin: pin,
+        location: myLocation,
+      })
+      .then((res) => {
+        setLoading(false);
+        if(!res.data?.token){
+          Toast({
+            description: "No Token!"
+          })
+          return
+        }
+        onToggle()
+        const data = {
+          ...receipt,
+          status: true,
+          candidateName: name,
+          token: res.data?.token,
+          timestamp: res.data?.createdAt,
+          voterName: res.data?.voterName,
+          voterId: res.data?.voterId,
+        };
+        setReceipt(data);
+        localStorage.setItem("receipt", JSON.stringify(data));
+      })
+      .catch((error) => {
+        onToggle()
+        Toast({
+          status: "error",
+          title: "Error occured while voting",
+          description:
+            error?.response?.data?.error?.message ||
+            error?.response?.data?.message ||
+            error?.message,
+        });
+      });
   }
 
   useEffect(() => {
     const existingReceipt = JSON.parse(localStorage.getItem("receipt"));
     if (existingReceipt) {
-      setLoading(true);
       setReceipt(existingReceipt);
     }
   }, []);
@@ -121,24 +128,52 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
               {name}
             </Text>
           </Skeleton>
+
           <Skeleton mt={4} w={"56"} isLoaded={Boolean(id)}>
-            <Button
-              w={"full"}
-              bgColor={"#333"}
-              color={"#FFF"}
-              colorScheme="teal"
-              leftIcon={<FaCheck />}
-              onClick={onToggle}
-            >
-              Vote This Candidate
-            </Button>
+            {resultDeclared ? (
+              <Box w={"full"}>
+                <Progress
+                  value={(Number(tokens?.length) / parseInt(totalVotes)) * 100}
+                  colorScheme="yellow"
+                  w={"full"}
+                  rounded={"full"}
+                />
+                <Text
+                  textAlign={"right"}
+                  fontSize={"sm"}
+                  fontWeight={"semibold"}
+                >
+                  {(parseInt(tokens?.length) / parseInt(totalVotes)) * 100}% Votes
+                </Text>
+                <br />
+                <Button w={"full"} onClick={() => setTokenModalStatus(true)}>
+                  View Vote Tokens
+                </Button>
+              </Box>
+            ) : (
+              <Button
+                w={"full"}
+                bgColor={resultDeclared || receipt.candidateName == name ? "whatsapp.500" : "#333"}
+                color={"#FFF"}
+                colorScheme={resultDeclared || receipt.candidateName == name ? "whatsapp" : "teal"}
+                leftIcon={<FaCheck />}
+                onClick={() => {
+                  if (!resultDeclared && receipt.candidateName != name) onToggle();
+                  else console.log("Result declared!");
+                }}
+              >
+                {receipt.candidateName == name
+                  ? "Your Voted Candidate"
+                  : "Vote This Candidate"}
+              </Button>
+            )}
           </Skeleton>
         </VStack>
       </Box>
 
       <Receipt
         data={receipt}
-        onClose={() => setReceipt({ ...receipt, status: false })}
+        onClose={() => setReceipt((prev)=>({ ...prev, status: false }))}
       />
 
       {/* Voter ID Modal */}
@@ -153,6 +188,8 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
                 <PinInputField />
                 <PinInputField />
                 <PinInputField />
+                <PinInputField />
+                <PinInputField />
               </PinInput>
             </HStack>
           </ModalBody>
@@ -163,10 +200,34 @@ const Candidate = ({ id, name, avatar, myLocation }) => {
                 color={"#FFF"}
                 bgColor={"#333"}
                 colorScheme="teal"
-                onClick={()=>casteVote()}
+                onClick={() => casteVote()}
               >
                 Confirm
               </Button>
+            </HStack>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* Tokens List */}
+      <Modal
+        isOpen={tokenModalStatus}
+        onClose={() => setTokenModalStatus(false)}
+        isCentered={true}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{name}'s Vote Tokens</ModalHeader>
+          <ModalBody py={8}>
+            {tokens?.map((voteToken, key) => (
+              <Text key={key}>
+                {key + 1}. {voteToken}
+              </Text>
+            ))}
+          </ModalBody>
+          <ModalFooter>
+            <HStack justifyContent={"flex-end"} gap={6}>
+              <Button onClick={() => setTokenModalStatus(false)}>Close</Button>
             </HStack>
           </ModalFooter>
         </ModalContent>

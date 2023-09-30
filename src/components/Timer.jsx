@@ -2,7 +2,7 @@
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
-const Timer = ({ targetDate }) => {
+const Timer = ({ targetDate, title }) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Timer = ({ targetDate }) => {
           rounded={12}
           boxShadow={"md"}
         >
-          <Text textAlign={"center"} fontSize={'xs'} className="messiri">This Election Will End In</Text>
+          <Text textAlign={"center"} fontSize={'xs'} className="messiri">{title || "This Election Will End In"}</Text>
           <HStack gap={8} alignItems="flex-end">
             <Box>
               <Text textAlign={"center"} fontWeight={"bold"} fontSize={"4xl"}>
