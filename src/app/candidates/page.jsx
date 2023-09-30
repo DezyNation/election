@@ -6,7 +6,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { BsCheck2Circle } from "react-icons/bs";
 
-const CandidatesList = ({ location }) => {
+const CandidatesList = ({ location, ip }) => {
   const Toast = useToast();
 
   const [electionInfo, setElectionInfo] = useState(null);
@@ -83,7 +83,7 @@ const CandidatesList = ({ location }) => {
 
   return (
     <>
-      {/* <Timer targetDate={new Date(electionInfo?.endAt)} /> */}
+      <Timer targetDate={new Date(electionInfo?.endAt)} />
       <Text textAlign={"center"} fontSize={"lg"} fontWeight={"semibold"} pt={4}>
         {electionInfo?.title}
       </Text>
@@ -106,6 +106,7 @@ const CandidatesList = ({ location }) => {
             name={candidate?.volunteer?.name}
             avatar={candidate?.volunteer?.avatar}
             myLocation={location}
+            myIp={ip}
             tokens={candidate?.votes?.map((vote) => vote?.token)}
             totalVotes={electionInfo?.totalVotes}
             resultDeclared={electionInfo?.status == "declared"}

@@ -25,7 +25,7 @@ export default function Home() {
   const Toast = useToast();
   const [location, setLocation] = useState("");
 
-  const [consented, setConsented] = useState(true);
+  const [myIp, setMyIp] = useState(true);
   const [consentModal, setConsentModal] = useState(false);
 
   const [electionInfo, setElectionInfo] = useState(null);
@@ -77,11 +77,9 @@ export default function Home() {
   useEffect(() => {
     const consentStatus = localStorage.getItem("consented");
     if (consentStatus == "true" || consentStatus == true) {
-      setConsented(true);
       setConsentModal(false)
     } else {
       setConsentModal(true)
-      setConsented(false);
     }
   }, []);
 
@@ -102,6 +100,21 @@ export default function Home() {
         });
       });
   }, []);
+
+  useEffect(()=>{
+    axios.get(`https://api.ipify.org/?format=json`).then(res => {
+      setMyIp(res.data?.ip)
+    }).catch(err => {
+      Toast({
+        status: "error",
+        title: "Error occured while getting your IP",
+        description:
+          err?.response?.data?.err?.message ||
+          err?.response?.data?.message ||
+          err?.message,
+      });
+    })
+  },[])
 
   return (
     <>
@@ -132,7 +145,7 @@ export default function Home() {
         </HStack>
         <Box w={"full"} pt={location ? 8 : 48}></Box>
         {location ? (
-          <CandidatesList />
+          <CandidatesList location={location} ip={myIp} />
         ) : (
           <VStack>
             <FaLocationDot color="#333" size={"128"} />
@@ -160,7 +173,6 @@ export default function Home() {
             <HStack justifyContent={"flex-end"}>
               <Button
                 onClick={() => {
-                  setConsented(true);
                   localStorage.setItem("consented", true)
                   setConsentModal(false);
                 }}

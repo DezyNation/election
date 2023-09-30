@@ -31,6 +31,7 @@ const Candidate = ({
   name,
   avatar,
   myLocation,
+  myIp,
   resultDeclared,
   totalVotes,
   tokens,
@@ -57,6 +58,7 @@ const Candidate = ({
         candidateId: id,
         secretPin: pin,
         location: myLocation,
+        ip: myIp
       })
       .then((res) => {
         setLoading(false);
