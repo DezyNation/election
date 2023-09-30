@@ -25,7 +25,6 @@ export default function Home() {
   const Toast = useToast();
   const [location, setLocation] = useState("");
 
-  const [myIp, setMyIp] = useState(true);
   const [consentModal, setConsentModal] = useState(false);
 
   const [electionInfo, setElectionInfo] = useState(null);
@@ -101,21 +100,6 @@ export default function Home() {
       });
   }, []);
 
-  useEffect(()=>{
-    axios.get(`https://api.ipify.org/?format=json`).then(res => {
-      setMyIp(res.data?.ip)
-    }).catch(err => {
-      Toast({
-        status: "error",
-        title: "Error occured while getting your IP",
-        description:
-          err?.response?.data?.err?.message ||
-          err?.response?.data?.message ||
-          err?.message,
-      });
-    })
-  },[])
-
   return (
     <>
       <Box
@@ -145,7 +129,7 @@ export default function Home() {
         </HStack>
         <Box w={"full"} pt={location ? 8 : 48}></Box>
         {location ? (
-          <CandidatesList location={location} ip={myIp} />
+          <CandidatesList location={location} />
         ) : (
           <VStack>
             <FaLocationDot color="#333" size={"128"} />
