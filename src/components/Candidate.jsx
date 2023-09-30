@@ -60,13 +60,13 @@ const Candidate = ({
       })
       .then((res) => {
         setLoading(false);
-        if(!res.data?.token){
+        if (!res.data?.token) {
           Toast({
-            description: "No Token!"
-          })
-          return
+            description: "No Token!",
+          });
+          return;
         }
-        onToggle()
+        onToggle();
         const data = {
           ...receipt,
           status: true,
@@ -80,7 +80,7 @@ const Candidate = ({
         localStorage.setItem("receipt", JSON.stringify(data));
       })
       .catch((error) => {
-        onToggle()
+        onToggle();
         Toast({
           status: "error",
           title: "Error occured while voting",
@@ -143,7 +143,8 @@ const Candidate = ({
                   fontSize={"sm"}
                   fontWeight={"semibold"}
                 >
-                  {(parseInt(tokens?.length) / parseInt(totalVotes)) * 100}% Votes
+                  {(parseInt(tokens?.length) / parseInt(totalVotes)) * 100}%
+                  Votes
                 </Text>
                 <br />
                 <Button w={"full"} onClick={() => setTokenModalStatus(true)}>
@@ -153,12 +154,21 @@ const Candidate = ({
             ) : (
               <Button
                 w={"full"}
-                bgColor={resultDeclared || receipt.candidateName == name ? "whatsapp.500" : "#333"}
+                bgColor={
+                  resultDeclared || receipt.candidateName == name
+                    ? "whatsapp.500"
+                    : "#333"
+                }
                 color={"#FFF"}
-                colorScheme={resultDeclared || receipt.candidateName == name ? "whatsapp" : "teal"}
+                colorScheme={
+                  resultDeclared || receipt.candidateName == name
+                    ? "whatsapp"
+                    : "teal"
+                }
                 leftIcon={<FaCheck />}
                 onClick={() => {
-                  if (!resultDeclared && receipt.candidateName != name) onToggle();
+                  if (!resultDeclared && receipt.candidateName != name)
+                    onToggle();
                   else console.log("Result declared!");
                 }}
               >
@@ -173,7 +183,7 @@ const Candidate = ({
 
       <Receipt
         data={receipt}
-        onClose={() => setReceipt((prev)=>({ ...prev, status: false }))}
+        onClose={() => setReceipt((prev) => ({ ...prev, status: false }))}
       />
 
       {/* Voter ID Modal */}
@@ -220,8 +230,19 @@ const Candidate = ({
           <ModalHeader>{name}'s Vote Tokens</ModalHeader>
           <ModalBody py={8}>
             {tokens?.map((voteToken, key) => (
-              <Text key={key}>
-                {key + 1}. {voteToken}
+              <Text
+                key={key}
+                p={2} my={2}
+                rounded={4}
+                bgColor={
+                  receipt?.token == voteToken ? "whatsapp.50" : "twitter.50"
+                }
+                border={"1px"}
+                borderColor={
+                  receipt?.token == voteToken ? "whatsapp.50" : "twitter.50"
+                }
+              >
+                {voteToken}
               </Text>
             ))}
           </ModalBody>
