@@ -48,7 +48,7 @@ const page = () => {
         w={"full"}
         minH={"100vh"}
       >
-        <Text textAlign={"center"} fontWeight={"semibold"} fontSize={"3xl"}>
+        <Text textAlign={"center"} fontWeight={"semibold"} fontSize={"3xl"} className="messiri">
           Voters List
         </Text>
         <br />
