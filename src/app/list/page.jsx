@@ -55,7 +55,7 @@ const page = () => {
         <br />
         <Container maxW={"3xl"}>
           <Input
-            placeholder="Search Your Name..."
+            placeholder="Type here to search your name..."
             onChange={(e) => search(e.target.value)}
           />
           <br />

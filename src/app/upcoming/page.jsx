@@ -41,7 +41,7 @@ const page = () => {
   return (
     <>
       <VStack w={'full'} h={'100vh'} bgImage={'/gradient.jpg'} p={8}>
-        <Text fontWeight={"semibold"} fontSize={"2xl"}>
+        <Text fontWeight={"semibold"} fontSize={"2xl"} textAlign={'center'}>
           The election has not started yet!
         </Text>
         <br />
