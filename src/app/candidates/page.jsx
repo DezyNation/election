@@ -65,7 +65,7 @@ const CandidatesList = ({ location }) => {
 
   function getResult() {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/votes/result`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/vote/view/result`)
       .then((res) => {
         setCandidates(res.data);
       })
