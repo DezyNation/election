@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   HStack,
+  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -192,16 +193,14 @@ const Candidate = ({
         <ModalContent>
           <ModalHeader>Please Enter Your Secret PIN</ModalHeader>
           <ModalBody py={8}>
-            <HStack justifyContent={"center"}>
-              <PinInput mask otp onComplete={(value) => setPin(value)}>
-                <PinInputField />
-                <PinInputField />
-                <PinInputField />
-                <PinInputField />
-                <PinInputField />
-                <PinInputField />
-              </PinInput>
-            </HStack>
+            <Input
+              value={pin}
+              onChange={(e) => setPin(e.target.value)}
+              textAlign={"center"}
+              placeholder="Your Secret PIN"
+              variant={"flushed"}
+              textTransform={'uppercase'}
+            />
           </ModalBody>
           <ModalFooter>
             <HStack justifyContent={"flex-end"} gap={6}>
@@ -232,7 +231,8 @@ const Candidate = ({
             {tokens?.map((voteToken, key) => (
               <Text
                 key={key}
-                p={2} my={2}
+                p={2}
+                my={2}
                 rounded={4}
                 bgColor={
                   receipt?.token == voteToken ? "whatsapp.50" : "twitter.50"
