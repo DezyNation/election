@@ -140,7 +140,7 @@ export default function Home() {
         )}
 
         <Box w={"full"} pt={24}></Box>
-        <Text fontSize={"xs"} textAlign={"center"} py={4} cursor={"pointer"}>
+        <Text fontSize={"xs"} textAlign={"center"} py={4} cursor={"pointer"} onClick={()=>setConsentModal(true)}>
           By participating in this poll you agree to our Terms & Conditions
         </Text>
       </Box>
