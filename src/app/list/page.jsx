@@ -69,6 +69,7 @@ const page = () => {
           <br />
           <HStack w={'full'} justifyContent={'space-between'}>
             <HStack
+            cursor={'pointer'}
               p={4}
               bgColor={"#FFF"}
               rounded={12}
@@ -84,6 +85,7 @@ const page = () => {
             </HStack>
             <HStack
               p={4}
+              cursor={'pointer'}
               bgColor={"#FFF"}
               rounded={12}
               boxShadow={"lg"}
@@ -98,6 +100,7 @@ const page = () => {
             </HStack>
             <HStack
               p={4}
+              cursor={'pointer'}
               bgColor={"#FFF"}
               rounded={12}
               boxShadow={"lg"}
