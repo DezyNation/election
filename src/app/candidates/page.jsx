@@ -10,7 +10,14 @@ import { BsCheck2Circle } from "react-icons/bs";
 const CandidatesList = ({ location }) => {
   const Toast = useToast();
 
-  const [receipt, setReceipt] = useState(null)
+  const [receipt, setReceipt] = useState({
+    status: false,
+    candidateName: "",
+    token: "",
+    timestamp: "",
+    voterName: "",
+    voterId: "",
+  })
   const [electionInfo, setElectionInfo] = useState(null);
   const [candidates, setCandidates] = useState([]);
 
