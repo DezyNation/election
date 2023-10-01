@@ -34,22 +34,7 @@ export default function Home() {
     timeout: 5000,
     maximumAge: 0,
   };
-  function success(pos) {
-    var crd = pos.coords;
-    console.log("Your current position is:");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
-    setLocation(`${crd.latitude}, ${crd.longitude}`);
-  }
 
-  function errors(err) {
-    Toast({
-      status: "error",
-      title: `GEO LOCATION ERROR (${err.code})`,
-      description: err.message,
-    });
-  }
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.permissions
@@ -72,6 +57,24 @@ export default function Home() {
       });
     }
   }, []);
+
+
+  function success(pos) {
+    var crd = pos.coords;
+    console.log("Your current position is:");
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+    setLocation(`${crd.latitude}, ${crd.longitude}`);
+  }
+
+  function errors(err) {
+    Toast({
+      status: "error",
+      title: `GEO LOCATION ERROR (${err.code})`,
+      description: err.message,
+    });
+  }
 
   useEffect(() => {
     const consentStatus = localStorage.getItem("consented");
