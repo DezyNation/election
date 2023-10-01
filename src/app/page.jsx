@@ -76,9 +76,9 @@ export default function Home() {
   useEffect(() => {
     const consentStatus = localStorage.getItem("consented");
     if (consentStatus == "true" || consentStatus == true) {
-      setConsentModal(false)
+      setConsentModal(false);
     } else {
-      setConsentModal(true)
+      setConsentModal(true);
     }
   }, []);
 
@@ -140,7 +140,13 @@ export default function Home() {
         )}
 
         <Box w={"full"} pt={24}></Box>
-        <Text fontSize={"xs"} textAlign={"center"} py={4} cursor={"pointer"} onClick={()=>setConsentModal(true)}>
+        <Text
+          fontSize={"xs"}
+          textAlign={"center"}
+          py={4}
+          cursor={"pointer"}
+          onClick={() => setConsentModal(true)}
+        >
           By participating in this poll you agree to our Terms & Conditions
         </Text>
       </Box>
@@ -150,14 +156,16 @@ export default function Home() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Terms and conditions of use</ModalHeader>
-          <ModalBody p={4}>
-            {<ReactMarkdown>{electionInfo?.terms || ""}</ReactMarkdown>}
+          <ModalBody>
+            <Box p={4}>
+              {<ReactMarkdown>{electionInfo?.terms || ""}</ReactMarkdown>}
+            </Box>
           </ModalBody>
           <ModalFooter>
             <HStack justifyContent={"flex-end"}>
               <Button
                 onClick={() => {
-                  localStorage.setItem("consented", true)
+                  localStorage.setItem("consented", true);
                   setConsentModal(false);
                 }}
               >
