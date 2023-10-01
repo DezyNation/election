@@ -35,7 +35,9 @@ const page = () => {
       setVolunteers(allVolunteers);
       return;
     }
-    const data = volunteers.filter((user) => user?.name?.toLowerCase()?.includes(value?.toLowerCase()));
+    const data = volunteers.filter((user) =>
+      user?.name?.toLowerCase()?.includes(value?.toLowerCase())
+    );
     setVolunteers(data);
   }
 
@@ -48,7 +50,12 @@ const page = () => {
         w={"full"}
         minH={"100vh"}
       >
-        <Text textAlign={"center"} fontWeight={"semibold"} fontSize={"3xl"} className="messiri">
+        <Text
+          textAlign={"center"}
+          fontWeight={"semibold"}
+          fontSize={"3xl"}
+          className="messiri"
+        >
           Voters List
         </Text>
         <br />
@@ -60,16 +67,61 @@ const page = () => {
           />
           <br />
           <br />
+          <HStack w={'full'} justifyContent={'space-between'}>
+            <HStack
+              p={4}
+              bgColor={"#FFF"}
+              rounded={12}
+              boxShadow={"lg"}
+              onClick={() =>
+                setVolunteers(
+                  volunteers.filter((volunteer) => !volunteer?.canVote)
+                )
+              }
+            >
+              <Text>Voted</Text>
+              <Box boxSize={4} rounded={"full"} bgColor={"whatsapp.400"}></Box>
+            </HStack>
+            <HStack
+              p={4}
+              bgColor={"#FFF"}
+              rounded={12}
+              boxShadow={"lg"}
+              onClick={() =>
+                setVolunteers(
+                  volunteers.filter((volunteer) => volunteer?.canVote)
+                )
+              }
+            >
+              <Text>Not Voted</Text>
+              <Box boxSize={4} rounded={"full"} bgColor={"red.400"}></Box>
+            </HStack>
+            <HStack
+              p={4}
+              bgColor={"#FFF"}
+              rounded={12}
+              boxShadow={"lg"}
+              onClick={() =>
+                setVolunteers(
+                  allVolunteers
+                )
+              }
+            >
+              <Text>All Voters</Text>
+            </HStack>
+          </HStack>
+          <br />
+          <br />
           {volunteers?.map((user, key) => (
             <HStack
               w={"full"}
-              p={4} my={2}
+              p={4}
+              my={2}
               rounded={12}
               bgColor={"#FFF"}
               boxShadow={"lg"}
               justifyContent={"space-between"}
-              alignItems={'center'}
-
+              alignItems={"center"}
             >
               <Text fontWeight={"medium"}>{user?.name}</Text>
               <Box
