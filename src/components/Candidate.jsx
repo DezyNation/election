@@ -234,6 +234,7 @@ const Candidate = ({
                 borderColor={
                   receipt?.token == voteToken ? "whatsapp.50" : "twitter.50"
                 }
+                fontSize={'xs'}
               >
                 {voteToken}
               </Text>
