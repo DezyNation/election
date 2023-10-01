@@ -146,7 +146,7 @@ const page = () => {
               <Box
                 boxSize={4}
                 rounded={"full"}
-                bgColor={token?.isVerified ? "whatsapp.50" : "red.50"}
+                bgColor={token?.isVerified ? "whatsapp.500" : "red.500"}
               ></Box>
             </HStack>
           ))}
@@ -174,7 +174,7 @@ const page = () => {
               <Box
                 boxSize={4}
                 rounded={"full"}
-                bgColor={token?.isVerified ? "whatsapp.50" : "red.50"}
+                bgColor={token?.isVerified ? "whatsapp.500" : "red.500"}
               ></Box>
             </HStack>
           ))}
