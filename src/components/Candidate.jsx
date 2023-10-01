@@ -137,7 +137,7 @@ const Candidate = ({
                   fontSize={"sm"}
                   fontWeight={"semibold"}
                 >
-                  {(parseInt(tokens?.length) / parseInt(totalVotes)) * 100}%
+                  {parseInt(tokens?.length)}
                   Votes
                 </Text>
                 <br />
