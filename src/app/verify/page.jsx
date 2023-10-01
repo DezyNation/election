@@ -128,6 +128,7 @@ const page = () => {
           </Stack>
           <br />
           <br />
+<Text>Your Tokens</Text>
           {myTokens?.map((token, key) => (
             <HStack
               key={key}

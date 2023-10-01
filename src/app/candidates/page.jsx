@@ -84,7 +84,7 @@ const CandidatesList = ({ location }) => {
       .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/vote/view/result`)
       .then((res) => {
         setCandidates(
-          res.data?.sort((a, b) => a?.votes?.length - b?.votes?.length)?.slice(0,5)
+          res.data?.sort((a, b) => b?.votes?.length - a?.votes?.length)?.slice(0,5)
         );
       })
       .catch((err) => {
