@@ -150,7 +150,7 @@ export default function Home() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Terms and conditions of use</ModalHeader>
-          <ModalBody>
+          <ModalBody p={4}>
             {<ReactMarkdown>{electionInfo?.terms || ""}</ReactMarkdown>}
           </ModalBody>
           <ModalFooter>
