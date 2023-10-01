@@ -76,7 +76,7 @@ const page = () => {
               boxShadow={"lg"}
               onClick={() =>
                 setVolunteers(
-                  volunteers.filter((volunteer) => !volunteer?.canVote)
+                  volunteers.filter((volunteer) => (volunteer?.canVote == false))
                 )
               }
             >
@@ -91,7 +91,7 @@ const page = () => {
               boxShadow={"lg"}
               onClick={() =>
                 setVolunteers(
-                  volunteers.filter((volunteer) => volunteer?.canVote)
+                  volunteers.filter((volunteer) => (volunteer?.canVote == true))
                 )
               }
             >
