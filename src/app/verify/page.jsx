@@ -141,7 +141,7 @@ const page = () => {
                 <Text fontWeight={"medium"} fontSize={'xs'}>{token?.token}</Text>
               </Box>
               <Box>
-                <Text>{token?.candidate?.volunteer?.name}</Text>
+                <Text fontSize={'xs'}>{token?.candidate?.volunteer?.name}</Text>
               </Box>
               <Box
                 boxSize={4}
@@ -169,7 +169,7 @@ const page = () => {
                 <Text fontWeight={"medium"} fontSize={'xs'}>{token?.token}</Text>
               </Box>
               <Box>
-                <Text>{token?.candidate?.volunteer?.name}</Text>
+                <Text fontSize={'xs'}>{token?.candidate?.volunteer?.name}</Text>
               </Box>
               <Box
                 boxSize={4}
