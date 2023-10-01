@@ -104,7 +104,7 @@ const CandidatesList = ({ location }) => {
       <Text textAlign={"center"} fontSize={"lg"} fontWeight={"semibold"} pt={4}>
         {electionInfo?.title}
       </Text>
-      <Text textAlign={"center"} fontWeight={"medium"}> pb={4}
+      <Text textAlign={"center"} fontWeight={"medium"}>
         {electionInfo?.description}
       </Text>
       {electionInfo?.status == "declared" ? (
