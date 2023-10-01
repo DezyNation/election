@@ -22,7 +22,7 @@ const CandidatesList = ({ location }) => {
       getResult();
     } else if (electionInfo?.status == "ongoing") {
       getCandidates();
-    } else {
+    } else if (electionInfo?.status == "upcoming") {
       window.location.replace("/upcoming");
     }
   }, [electionInfo]);
@@ -87,9 +87,21 @@ const CandidatesList = ({ location }) => {
       <Text textAlign={"center"} fontSize={"lg"} fontWeight={"semibold"} pt={4}>
         {electionInfo?.title}
       </Text>
-      <Text textAlign={"center"} fontWeight={"medium"}>
+      <Text textAlign={"center"} fontWeight={"medium"}> pb={4}
         {electionInfo?.description}
       </Text>
+      {electionInfo?.status == "declared" ? (
+        <HStack wrap={"wrap"} justifyContent={"space-between"} py={4} gap={6} spacing={6}>
+          <Box p={4} flex={1} rounded={12} boxShadow={'lg'} bgColor={'#FFF'}>
+            <Text fontWeight={'medium'}>Observation 1:</Text>
+            <Text fontSize={'sm'}>{electionInfo?.observation1}</Text>
+          </Box>
+          <Box p={4} flex={1} rounded={12} boxShadow={'lg'} bgColor={'#FFF'}>
+            <Text fontWeight={'medium'}>Observation 2:</Text>
+            <Text fontSize={'sm'}>{electionInfo?.observation2}</Text>
+          </Box>
+        </HStack>
+      ) : null}
       <Box pb={8} w={"full"}></Box>
       <Stack
         w={"full"}
