@@ -78,7 +78,7 @@ const page = () => {
   return (
     <>
       <Box
-        p={8}
+        p={[4, 8]}
         bgImage={"/gradient.jpg"}
         bgSize={"cover"}
         w={"full"}
@@ -142,6 +142,7 @@ const page = () => {
               justifyContent={"space-between"}
               alignItems={"center"}
               gap={4}
+              flexWrap={'wrap'}
             >
               <Box maxW={["full", "75%"]}>
                 <Text fontWeight={"medium"} fontSize={"xs"}>
@@ -173,6 +174,7 @@ const page = () => {
               justifyContent={"space-between"}
               alignItems={"center"}
               gap={4}
+              flexWrap={'wrap'}
             >
               <Box maxW={["full", "75%"]}>
                 <Text fontWeight={"medium"} fontSize={"xs"}>
