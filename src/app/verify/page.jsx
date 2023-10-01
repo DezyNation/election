@@ -42,7 +42,7 @@ const page = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/vote/verify`, {
         secretPin: secretPin,
-        candidateId: candidateId,
+        candidatedId: candidateId,
       })
       .then((res) => {
         setMyTokens(res.data);
