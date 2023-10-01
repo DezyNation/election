@@ -23,58 +23,58 @@ import axios from "axios";
 
 export default function Home() {
   const Toast = useToast();
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("12345678");
 
   const [consentModal, setConsentModal] = useState(false);
 
   const [electionInfo, setElectionInfo] = useState(null);
 
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
+  // var options = {
+  //   enableHighAccuracy: true,
+  //   timeout: 5000,
+  //   maximumAge: 0,
+  // };
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.permissions
-        .query({ name: "geolocation" })
-        .then(function (result) {
-          if (result.state === "granted") {
-            //If granted then you can directly call your function here
-            navigator.geolocation.getCurrentPosition(success, errors, options);
-          } else if (result.state === "prompt") {
-            //If prompt then the user will be asked to give permission
-            navigator.geolocation.getCurrentPosition(success, errors, options);
-          } else if (result.state === "denied") {
-            //If denied then you have to show instructions to enable location
-          }
-        });
-    } else {
-      Toast({
-        title: "Please try another device or browser",
-        description: "Geolocation is not supported by this browser.",
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.permissions
+  //       .query({ name: "geolocation" })
+  //       .then(function (result) {
+  //         if (result.state === "granted") {
+  //           //If granted then you can directly call your function here
+  //           navigator.geolocation.getCurrentPosition(success, errors, options);
+  //         } else if (result.state === "prompt") {
+  //           //If prompt then the user will be asked to give permission
+  //           navigator.geolocation.getCurrentPosition(success, errors, options);
+  //         } else if (result.state === "denied") {
+  //           //If denied then you have to show instructions to enable location
+  //         }
+  //       });
+  //   } else {
+  //     Toast({
+  //       title: "Please try another device or browser",
+  //       description: "Geolocation is not supported by this browser.",
+  //     });
+  //   }
+  // }, []);
 
 
-  function success(pos) {
-    var crd = pos.coords;
-    console.log("Your current position is:");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
-    setLocation(`${crd.latitude}, ${crd.longitude}`);
-  }
+  // function success(pos) {
+  //   var crd = pos.coords;
+  //   console.log("Your current position is:");
+  //   console.log(`Latitude : ${crd.latitude}`);
+  //   console.log(`Longitude: ${crd.longitude}`);
+  //   console.log(`More or less ${crd.accuracy} meters.`);
+  //   setLocation(`${crd.latitude}, ${crd.longitude}`);
+  // }
 
-  function errors(err) {
-    Toast({
-      status: "error",
-      title: `GEO LOCATION ERROR (${err.code})`,
-      description: err.message,
-    });
-  }
+  // function errors(err) {
+  //   Toast({
+  //     status: "error",
+  //     title: `GEO LOCATION ERROR (${err.code})`,
+  //     description: err.message,
+  //   });
+  // }
 
   useEffect(() => {
     const consentStatus = localStorage.getItem("consented");
