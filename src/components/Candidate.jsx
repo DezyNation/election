@@ -137,7 +137,7 @@ const Candidate = ({
                   fontSize={"sm"}
                   fontWeight={"semibold"}
                 >
-                  {parseInt(tokens?.length)}
+                  {parseInt(tokens?.length)}{" "}
                   Votes
                 </Text>
                 <br />
@@ -192,7 +192,7 @@ const Candidate = ({
               textAlign={"center"}
               placeholder="Your Secret PIN"
               variant={"flushed"}
-              textTransform={'uppercase'}
+              textTransform={"uppercase"}
             />
           </ModalBody>
           <ModalFooter>
