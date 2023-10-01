@@ -149,24 +149,24 @@ const Candidate = ({
               <Button
                 w={"full"}
                 bgColor={
-                  resultDeclared || receipt.candidateName == name
+                  resultDeclared || receipt?.candidateName == name
                     ? "whatsapp.500"
                     : "#333"
                 }
                 color={"#FFF"}
                 colorScheme={
-                  resultDeclared || receipt.candidateName == name
+                  resultDeclared || receipt?.candidateName == name
                     ? "whatsapp"
                     : "teal"
                 }
                 leftIcon={<FaCheck />}
                 onClick={() => {
-                  if (!resultDeclared && receipt.candidateName != name)
+                  if (!resultDeclared && receipt?.candidateName != name)
                     onToggle();
                   else console.log("Result declared!");
                 }}
               >
-                {receipt.candidateName == name
+                {receipt?.candidateName == name
                   ? "Your Voted Candidate"
                   : "Vote This Candidate"}
               </Button>

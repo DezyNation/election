@@ -17,14 +17,13 @@ const CandidatesList = ({ location }) => {
     timestamp: "",
     voterName: "",
     voterId: "",
-  })
+  });
   const [electionInfo, setElectionInfo] = useState(null);
   const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
     getElectionInfo();
   }, []);
-
 
   useEffect(() => {
     const existingReceipt = JSON.parse(localStorage.getItem("receipt"));
@@ -84,7 +83,9 @@ const CandidatesList = ({ location }) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/vote/view/result`)
       .then((res) => {
-        setCandidates(res.data);
+        setCandidates(
+          res.data?.sort((a, b) => a?.votes?.length - b?.votes?.length)?.slice(0,5)
+        );
       })
       .catch((err) => {
         Toast({
@@ -108,14 +109,24 @@ const CandidatesList = ({ location }) => {
         {electionInfo?.description}
       </Text>
       {electionInfo?.status == "declared" ? (
-        <HStack wrap={"wrap"} justifyContent={"space-between"} py={4} gap={6} spacing={6}>
-          <Box p={4} flex={1} rounded={12} boxShadow={'lg'} bgColor={'#FFF'}>
-            <Text fontWeight={'medium'}>Observation 1:</Text>
-            <Text fontSize={'sm'}>{electionInfo?.observation1 || "Statement Pending"}</Text>
+        <HStack
+          wrap={"wrap"}
+          justifyContent={"space-between"}
+          py={4}
+          gap={6}
+          spacing={6}
+        >
+          <Box p={4} flex={1} rounded={12} boxShadow={"lg"} bgColor={"#FFF"}>
+            <Text fontWeight={"medium"}>Observation 1:</Text>
+            <Text fontSize={"sm"}>
+              {electionInfo?.observation1 || "Statement Pending"}
+            </Text>
           </Box>
-          <Box p={4} flex={1} rounded={12} boxShadow={'lg'} bgColor={'#FFF'}>
-            <Text fontWeight={'medium'}>Observation 2:</Text>
-            <Text fontSize={'sm'}>{electionInfo?.observation2 || "Statement Pending"}</Text>
+          <Box p={4} flex={1} rounded={12} boxShadow={"lg"} bgColor={"#FFF"}>
+            <Text fontWeight={"medium"}>Observation 2:</Text>
+            <Text fontSize={"sm"}>
+              {electionInfo?.observation2 || "Statement Pending"}
+            </Text>
           </Box>
         </HStack>
       ) : null}
