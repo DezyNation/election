@@ -2,6 +2,7 @@
 import Timer from "@/components/Timer";
 import { Box, Text, VStack, useToast } from "@chakra-ui/react";
 import axios from "axios";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const page = () => {
@@ -46,6 +47,11 @@ const page = () => {
         </Text>
         <br />
         <Timer targetDate={new Date(electionInfo?.startAt)} title={"The election will start in"} />
+
+        <br /><br /><br />
+        <Link href={'/candidates'}>
+          <Text>Click here to go to election page</Text>
+        </Link>
       </VStack>
     </>
   );
