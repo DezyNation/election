@@ -137,8 +137,8 @@ const page = () => {
               alignItems={"center"}
               gap={4}
             >
-              <Box>
-                <Text fontWeight={"medium"}>{token?.token}</Text>
+              <Box maxW={['full', '75%']}>
+                <Text fontWeight={"medium"} fontSize={'xs'}>{token?.token}</Text>
               </Box>
               <Box>
                 <Text>{token?.candidate?.volunteer?.name}</Text>
@@ -165,8 +165,8 @@ const page = () => {
               alignItems={"center"}
               gap={4}
             >
-              <Box>
-                <Text fontWeight={"medium"}>{token?.token}</Text>
+              <Box maxW={['full', '75%']}>
+                <Text fontWeight={"medium"} fontSize={'xs'}>{token?.token}</Text>
               </Box>
               <Box>
                 <Text>{token?.candidate?.volunteer?.name}</Text>
