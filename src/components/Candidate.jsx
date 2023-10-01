@@ -93,13 +93,6 @@ const Candidate = ({
       });
   }
 
-  useEffect(() => {
-    const existingReceipt = JSON.parse(localStorage.getItem("receipt"));
-    if (existingReceipt) {
-      setReceipt(existingReceipt);
-    }
-  }, []);
-
   return (
     <>
       {loading ? <FullPageLoader /> : null}

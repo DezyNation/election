@@ -1,5 +1,6 @@
 "use client";
 import Candidate from "@/components/Candidate";
+import Receipt from "@/components/Receipt";
 import Timer from "@/components/Timer";
 import { Box, HStack, Icon, Stack, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
@@ -9,11 +10,20 @@ import { BsCheck2Circle } from "react-icons/bs";
 const CandidatesList = ({ location }) => {
   const Toast = useToast();
 
+  const [receipt, setReceipt] = useState(null)
   const [electionInfo, setElectionInfo] = useState(null);
   const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
     getElectionInfo();
+  }, []);
+
+
+  useEffect(() => {
+    const existingReceipt = JSON.parse(localStorage.getItem("receipt"));
+    if (existingReceipt) {
+      setReceipt(existingReceipt);
+    }
   }, []);
 
   useEffect(() => {
@@ -143,6 +153,11 @@ const CandidatesList = ({ location }) => {
           </Box>
         </HStack>
       </Box>
+
+      <Receipt
+        data={receipt}
+        onClose={() => setReceipt((prev) => ({ ...prev, status: false }))}
+      />
     </>
   );
 };
