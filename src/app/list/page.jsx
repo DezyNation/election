@@ -81,7 +81,7 @@ const page = () => {
               }
             >
               <Text>Voted</Text>
-              <Box boxSize={4} rounded={"full"} bgColor={"whatsapp.400"}></Box>
+              <Box boxSize={4} rounded={"full"} bgColor={"red.400"}></Box>
             </HStack>
             <HStack
               p={4}
@@ -96,7 +96,7 @@ const page = () => {
               }
             >
               <Text>Not Voted</Text>
-              <Box boxSize={4} rounded={"full"} bgColor={"red.400"}></Box>
+              <Box boxSize={4} rounded={"full"} bgColor={"whatsapp.400"}></Box>
             </HStack>
             <HStack
               p={4}
