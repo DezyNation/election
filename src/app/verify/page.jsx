@@ -20,23 +20,8 @@ const page = () => {
   const [candidateId, setCandidateId] = useState("");
 
   const [candidates, setCandidates] = useState([]);
-  const [allTokens, setAllTokens] = useState([]);
   const [myTokens, setMyTokens] = useState([]);
 
-  useEffect(() => {
-    fetchTokens();
-  }, []);
-
-  function fetchTokens() {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/vote/valid-votes`)
-      .then((res) => {
-        setAllTokens(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   function fetchMyTokens() {
     axios
@@ -131,38 +116,6 @@ const page = () => {
           <br />
           <Text>{myTokens?.length ? "Your Tokens" : ""}</Text>
           {myTokens?.map((token, key) => (
-            <HStack
-              key={key}
-              w={"full"}
-              p={4}
-              my={2}
-              rounded={12}
-              bgColor={"#FFF"}
-              boxShadow={"lg"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-              gap={4}
-              flexWrap={'wrap'}
-            >
-              <Box maxW={["full", "75%"]}>
-                <Text fontWeight={"medium"} fontSize={"xs"}>
-                  {token?.token}
-                </Text>
-              </Box>
-              <Box>
-                <Text fontSize={"xs"}>{token?.candidate?.volunteer?.name}</Text>
-              </Box>
-              {/* <Box
-                boxSize={4}
-                rounded={"full"}
-                bgColor={token?.isVerified ? "whatsapp.500" : "red.500"}
-              ></Box> */}
-            </HStack>
-          ))}
-          <br />
-          <br />
-          <Text>All Tokens</Text>
-          {allTokens?.map((token, key) => (
             <HStack
               key={key}
               w={"full"}
