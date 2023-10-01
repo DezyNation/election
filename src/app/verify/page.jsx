@@ -160,6 +160,7 @@ const page = () => {
           ))}
           <br />
           <br />
+          <Text>All Tokens</Text>
           {allTokens?.map((token, key) => (
             <HStack
               key={key}
