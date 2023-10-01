@@ -46,7 +46,7 @@ const page = () => {
           The election has not started yet!
         </Text>
         <br />
-        <Timer targetDate={new Date(electionInfo?.startAt)} title={"The election will start in"} />
+        <Timer targetDate={electionInfo?.startAt} title={"The election will start in"} />
 
         <br /><br /><br />
         <Link href={'/candidates'}>

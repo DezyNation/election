@@ -15,7 +15,7 @@ const Timer = ({ targetDate, title }) => {
 
   function calculateTimeLeft(targetDate) {
     const now = new Date().getTime();
-    const difference = targetDate - now;
+    const difference = (targetDate ? new Date(targetDate) : new Date()) - now;
 
     if (difference <= 0) {
       return {

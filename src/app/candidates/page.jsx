@@ -100,7 +100,7 @@ const CandidatesList = ({ location }) => {
 
   return (
     <>
-      <Timer targetDate={new Date(electionInfo?.endAt)} />
+      <Timer targetDate={electionInfo?.endAt} />
       <Text textAlign={"center"} fontSize={"lg"} fontWeight={"semibold"} pt={4}>
         {electionInfo?.title}
       </Text>
