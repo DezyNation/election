@@ -6,6 +6,7 @@ import {
   HStack,
   Input,
   Select,
+  Stack,
   Text,
   VStack,
   useToast,
@@ -90,7 +91,8 @@ const page = () => {
         <br />
         <br />
         <Container maxW={"3xl"}>
-          <HStack
+          <Stack
+            direction={["column", "row"]}
             w={"full"}
             p={3}
             bgColor={"#FFF"}
@@ -114,8 +116,12 @@ const page = () => {
                 </option>
               ))}
             </Select>
-            <Button colorScheme="facebook" onClick={()=>fetchMyTokens()}>Verify</Button>
-          </HStack>
+            <HStack justifyContent={"flex-end"} w={"full"}>
+              <Button colorScheme="facebook" onClick={() => fetchMyTokens()}>
+                Verify
+              </Button>
+            </HStack>
+          </Stack>
           <br />
           <br />
           {myTokens?.map((token, key) => (
