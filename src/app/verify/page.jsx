@@ -113,6 +113,7 @@ const page = () => {
             <Select
               placeholder="Choose the candidate you voted"
               variant={"flushed"}
+              onChange={e => setCandidateId(e.target.value)}
             >
               {candidates?.map((candidate, key) => (
                 <option value={candidate?.volunteer?.idNumber} key={key}>
