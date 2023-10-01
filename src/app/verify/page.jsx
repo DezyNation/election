@@ -53,9 +53,9 @@ const page = () => {
       });
   }
 
-  useEffect(()=>{
-    getCandidates()
-  },[])
+  useEffect(() => {
+    getCandidates();
+  }, []);
 
   function getCandidates() {
     axios
@@ -113,7 +113,7 @@ const page = () => {
             <Select
               placeholder="Choose the candidate you voted"
               variant={"flushed"}
-              onChange={e => setCandidateId(e.target.value)}
+              onChange={(e) => setCandidateId(e.target.value)}
             >
               {candidates?.map((candidate, key) => (
                 <option value={candidate?.volunteer?.idNumber} key={key}>
@@ -129,7 +129,7 @@ const page = () => {
           </Stack>
           <br />
           <br />
-<Text>{myTokens?.length ? "Your Tokens" : ""}</Text>
+          <Text>{myTokens?.length ? "Your Tokens" : ""}</Text>
           {myTokens?.map((token, key) => (
             <HStack
               key={key}
@@ -143,17 +143,19 @@ const page = () => {
               alignItems={"center"}
               gap={4}
             >
-              <Box maxW={['full', '75%']}>
-                <Text fontWeight={"medium"} fontSize={'xs'}>{token?.token}</Text>
+              <Box maxW={["full", "75%"]}>
+                <Text fontWeight={"medium"} fontSize={"xs"}>
+                  {token?.token}
+                </Text>
               </Box>
               <Box>
-                <Text fontSize={'xs'}>{token?.candidate?.volunteer?.name}</Text>
+                <Text fontSize={"xs"}>{token?.candidate?.volunteer?.name}</Text>
               </Box>
-              <Box
+              {/* <Box
                 boxSize={4}
                 rounded={"full"}
                 bgColor={token?.isVerified ? "whatsapp.500" : "red.500"}
-              ></Box>
+              ></Box> */}
             </HStack>
           ))}
           <br />
@@ -171,17 +173,19 @@ const page = () => {
               alignItems={"center"}
               gap={4}
             >
-              <Box maxW={['full', '75%']}>
-                <Text fontWeight={"medium"} fontSize={'xs'}>{token?.token}</Text>
+              <Box maxW={["full", "75%"]}>
+                <Text fontWeight={"medium"} fontSize={"xs"}>
+                  {token?.token}
+                </Text>
               </Box>
               <Box>
-                <Text fontSize={'xs'}>{token?.candidate?.volunteer?.name}</Text>
+                <Text fontSize={"xs"}>{token?.candidate?.volunteer?.name}</Text>
               </Box>
-              <Box
+              {/* <Box
                 boxSize={4}
                 rounded={"full"}
                 bgColor={token?.isVerified ? "whatsapp.500" : "red.500"}
-              ></Box>
+              ></Box> */}
             </HStack>
           ))}
         </Container>
