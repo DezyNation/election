@@ -94,11 +94,11 @@ const CandidatesList = ({ location }) => {
         <HStack wrap={"wrap"} justifyContent={"space-between"} py={4} gap={6} spacing={6}>
           <Box p={4} flex={1} rounded={12} boxShadow={'lg'} bgColor={'#FFF'}>
             <Text fontWeight={'medium'}>Observation 1:</Text>
-            <Text fontSize={'sm'}>{electionInfo?.observation1}</Text>
+            <Text fontSize={'sm'}>{electionInfo?.observation1 || "Statement Pending"}</Text>
           </Box>
           <Box p={4} flex={1} rounded={12} boxShadow={'lg'} bgColor={'#FFF'}>
             <Text fontWeight={'medium'}>Observation 2:</Text>
-            <Text fontSize={'sm'}>{electionInfo?.observation2}</Text>
+            <Text fontSize={'sm'}>{electionInfo?.observation2 || "Statement Pending"}</Text>
           </Box>
         </HStack>
       ) : null}
